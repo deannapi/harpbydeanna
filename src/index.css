@@ -1,13 +1,49 @@
+:root {
+  --rosegold: #b76e79;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Brush Script MT";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+header h1 {
+  font-family: "Brush Script MT", cursive;
+  color: var(--rosegold);
+  font-size: 50px;
+}
+
+header,
+nav {
+  text-align: center;
+}
+
+nav ul li {
+  display: inline-block;
+  padding-left: 10px;
+}
+
+ul li {
+  list-style: none;
+}
+
+/* HOME */
+.home-carousel-img {
+  width: 65%;
+  border-radius: 40px;
+  border: silver 8px double;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.home {
+  text-align: center;
+  background-color: var(--rosegold);
 }
