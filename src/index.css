@@ -30,6 +30,10 @@ nav ul li {
   padding-left: 10px;
 }
 
+nav ul li a{
+  color: black;
+}
+
 ul li {
   list-style: none;
 }
@@ -77,4 +81,23 @@ footer ul li {
 .home {
   text-align: center;
   background-color: var(--rosegold);
+}
+
+/* ABOUT */
+.about {
+  text-align: center;
+  border: 8px double var(--rosegold);
+  border-radius: 40px;
+  margin: 10px 25px 10px 25px;
+  padding: 10px 0 10px 0;
+}
+
+.about img {
+  border-radius: 40px;
+  width: 30%;
+  border: var(--rosegold) 8px double;
+}
+
+.about h2 {
+  font-family: "Gabriola", cursive;
 }

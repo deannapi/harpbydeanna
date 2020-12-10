@@ -19,7 +19,11 @@ export default class Footer extends React.Component {
                 </a>
               </li>
               <li>
-                <a href="https://www.deannapi.com">
+                <a
+                  href="https://www.deannapi.com"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img src={deanna_favicon} alt="" />
                 </a>
               </li>
