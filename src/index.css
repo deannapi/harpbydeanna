@@ -30,7 +30,7 @@ nav ul li {
   padding-left: 10px;
 }
 
-nav ul li a{
+nav ul li a {
   color: black;
 }
 
@@ -104,25 +104,57 @@ footer ul li {
   font-variant: small-caps;
 }
 
+.about p {
+  font-family: "Tahoma";
+}
+
 /* CONTACT */
-.contact-full {
-  display: inline-flex;
+.contact {
+  text-align: center;
 }
 
-.contactme img {
+.contact label {
+  padding-right: 8px;
+  font-size: 14px;
+}
+
+#harp5 {
   border-radius: 40px;
-    margin-top: 20px;
-    width: 35%;
-    border: 8px double var(--rosegold);
+  margin-top: 20px;
+  width: 35%;
+  border: 8px double var(--rosegold);
+  margin-right: 15px;
 }
 
-.contactme h2 {
+h2 {
   font-family: "Gabriola", cursive;
-  text-align: center; 
+  text-align: center;
+}
+
+h5 {
+  font-family: "Tahoma";
+  text-align: center;
+}
+
+.contactform form {
+  /* display: inline-grid; */
+}
+
+.contactform {
+  display: inline-flex;
+  /* text-align: center; */
+}
+
+form label {
+  font-size: 14px;
+}
+
+form input {
+  font-size: 12px;
 }
 
 /* EVENTS */
-.events{
+.events {
   text-align: center;
   border: 8px var(--rosegold) double;
   border-radius: 40px;
