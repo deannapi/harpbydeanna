@@ -36,6 +36,7 @@ nav ul li a{
 
 ul li {
   list-style: none;
+  font-family: "Tahoma";
 }
 
 ul li a:hover {
@@ -100,4 +101,45 @@ footer ul li {
 
 .about h2 {
   font-family: "Gabriola", cursive;
+  font-variant: small-caps;
+}
+
+/* CONTACT */
+.contact-full {
+  display: inline-flex;
+}
+
+.contactme img {
+  border-radius: 40px;
+    margin-top: 20px;
+    width: 35%;
+    border: 8px double var(--rosegold);
+}
+
+.contactme h2 {
+  font-family: "Gabriola", cursive;
+  text-align: center; 
+}
+
+/* EVENTS */
+.events{
+  text-align: center;
+  border: 8px var(--rosegold) double;
+  border-radius: 40px;
+}
+
+.embed-responsive-item {
+  width: 50%;
+  height: 50%;
+  /* margin-left: 20%; */
+}
+
+iframe {
+  border-radius: 20px;
+  /* border: 8px var(--rosegold) double; */
+}
+
+.events h2 {
+  font-family: "Gabriola", cursive;
+  font-variant: small-caps;
 }

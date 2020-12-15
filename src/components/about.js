@@ -4,7 +4,7 @@ import harp3 from "../images/Harp3.jpeg";
 export default class About extends React.Component {
   render() {
     return (
-      <div class="about">
+      <div className="about">
         <h2>About Me</h2>
         <p>
           DeAnna Martinez is a West Texas harpist with over 20 years of
