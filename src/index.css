@@ -93,7 +93,7 @@ footer ul li {
   padding: 10px 0 10px 0;
 }
 
-.about img {
+.contactform img {
   border-radius: 40px;
   width: 30%;
   border: var(--rosegold) 8px double;
@@ -120,37 +120,30 @@ footer ul li {
 
 #harp5 {
   border-radius: 40px;
-  margin-top: 20px;
-  width: 35%;
+  width: 30%;
   border: 8px double var(--rosegold);
-  margin-right: 15px;
+  margin: 20px 15px 20px 0;
 }
 
-h2 {
+.contact h2 {
   font-family: "Gabriola", cursive;
   text-align: center;
+  font-weight: 600;
 }
 
-h5 {
-  font-family: "Tahoma";
+.contactform h5 {
+  font-family: "Gabriola", cursive;
   text-align: center;
-}
-
-.contactform form {
-  /* display: inline-grid; */
+  font-weight: 600;
 }
 
 .contactform {
-  display: inline-flex;
-  /* text-align: center; */
+  text-align: center;
 }
 
-form label {
-  font-size: 14px;
-}
-
-form input {
-  font-size: 12px;
+form {
+  text-align: center;
+  display: inline-block;
 }
 
 /* EVENTS */

@@ -1,14 +1,15 @@
 import React from "react";
+import { Form, Label, Header, Grid, Input } from "semantic-ui-react";
 import harp5 from "../images/Harp5.jpeg";
 
 export default class Contact extends React.Component {
   render() {
     return (
       <>
-        <h2>Get In Touch!</h2>
-
         <div className="contact">
-          <label>Email:</label>
+          <Header as="h2">Get In Touch!</Header>
+
+          <Label>Email:</Label>
           <a href="mailto:deannapi.mart@gmail.com">
             <svg
               width="1em"
@@ -26,7 +27,7 @@ export default class Contact extends React.Component {
             deannapi.mart@gmail.com
           </a>
           <br />
-          <label>Phone:</label>
+          <Label>Phone: </Label>
           <a href="tel:14324259101">
             <svg
               width="1em"
@@ -45,48 +46,52 @@ export default class Contact extends React.Component {
           </a>
         </div>
 
-        <h5>Have all your event details? Fill out the form.</h5>
         <div className="contactform">
-          <img src={harp5} alt="harp5" id="harp5" />
-          <form>
-            <label>First and Last Name:</label>
-            <input type="text" name="Name" placeholder="Full Name"></input>
-            <label>Your Email:</label>
-            <input type="text" name="Email"></input>
-            <label>Phone Number:</label>
-            <input type="tel" name="Phone"></input>
-            <label>Event Title:</label>
-            <input
-              type="text"
-              name="Title"
-              placeholder="Wedding, Birthday, Dinner..."
-            ></input>
-            <label>Description:</label>
-            <input
-              type="text"
-              name="Description"
-              placeholder="background music"
-            ></input>
-            <label>Event Date:</label>
-            <input type="date" name="Date"></input>
-            <label>Start Time:</label>
-            <input type="time" name="StartTime"></input>
-            <label>End Time:</label>
-            <input type="time" name="EndTime"></input>
-            <label>City:</label>
-            <input type="text" name="City"></input>
-            <label>State:</label>
-            <input type="text" name="State"></input>
-            <label>Other Details:</label>
-            <textarea
-              type="text"
-              name="Other"
-              placeholder="# of people, inside/outside, music requests"
-              rows="6"
-              cols="30"
-            ></textarea>
-            <button type="submit">Submit</button>
-          </form>
+          <img src={harp5} id="harp5" alt="harp5" />
+          <Header as="h5">
+            Have all your event details? Fill out the form.
+          </Header>
+          <Form>
+            {/* <Form.Group > */}
+              {/* <Grid celled centered>
+                <Grid.Row>
+                  <Grid.Column width={2}> */}
+                    <Form.Field>
+                      <Label pointing="above">First and Last Name</Label>
+                      <Input placeholder="Full name" />
+                    </Form.Field>
+
+                    <Form.Input label="Email" type="email" />
+                    <Form.Input label="Phone Number" type="tel" />
+                    <Form.Input
+                      label="Event Title"
+                      placeholder="Wedding, Birthday, Dinner..."
+                      type="text"
+                    />
+                    <Form.Input
+                      label="Description"
+                      type="text"
+                      placeholder="background music"
+                    />
+                    <Form.Input label="Event Date" type="date" />
+                  {/* </Grid.Column> */}
+
+                  {/* <Grid.Column> */}
+                    <Form.Input label="Start Time" type="time" />
+                    <Form.Input label="End Time" type="time" />
+                    <Form.Input label="City" type="text" />
+                    <Form.Input label="State" type="text" />
+                    <Form.TextArea
+                      label="Other Details"
+                      type="text"
+                      placeholder="# of people, inside/outside, music requests"
+                    />
+                  {/* </Grid.Column>
+                </Grid.Row>
+              </Grid> */}
+            {/* </Form.Group> */}
+            <Form.Button>Submit</Form.Button>
+          </Form>
         </div>
       </>
     );
