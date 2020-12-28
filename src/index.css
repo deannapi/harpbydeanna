@@ -4,7 +4,6 @@
 
 body {
   margin: 0;
-  font-family: "Brush Script MT";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -12,6 +11,12 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+h2 {
+  font-family: "Gabriola", cursive;
+  font-variant: small-caps;
+  text-align: center;
 }
 
 header h1 {
@@ -93,15 +98,18 @@ footer ul li {
   padding: 10px 0 10px 0;
 }
 
-.contactform img {
+.about img {
   border-radius: 40px;
   width: 30%;
   border: var(--rosegold) 8px double;
 }
 
-.about h2 {
-  font-family: "Gabriola", cursive;
-  font-variant: small-caps;
+/* CONTACT FORM */
+
+.contactform img {
+  border-radius: 40px;
+  width: 30%;
+  border: var(--rosegold) 8px double;
 }
 
 .about p {
@@ -113,28 +121,44 @@ footer ul li {
   text-align: center;
 }
 
-.contact label {
-  padding-right: 8px;
-  font-size: 14px;
+.contact a {
+  font-size: 13px;
+  color: var(--rosegold);
 }
 
-#harp5 {
-  border-radius: 40px;
-  width: 30%;
-  border: 8px double var(--rosegold);
-  margin: 20px 15px 20px 0;
+.contact a:hover {
+  color: gray;
+}
+
+.contact a svg {
+  padding-right: 5px;
+}
+
+label {
+  /* padding-right: 8px; */
+  margin-bottom: 0;
+  font-size: 14px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-variant: small-caps;
+}
+
+input, textarea {
+  margin-bottom: 5px;
+  border: #b76e79 3px double;
+  border-radius: 10px;
+  font-size: 12px;
 }
 
 .contact h2 {
-  font-family: "Gabriola", cursive;
+  /* font-family: "Gabriola", cursive; */
   text-align: center;
   font-weight: 600;
 }
 
-.contactform h5 {
+h5 {
   font-family: "Gabriola", cursive;
   text-align: center;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .contactform {
@@ -144,6 +168,23 @@ footer ul li {
 form {
   text-align: center;
   display: inline-block;
+}
+
+button {
+  background-color: var(--rosegold);
+  border-radius: 30px;
+  font-weight: 600;
+  font-variant: small-caps;
+  border: grey 3px double;
+}
+
+button:hover {
+  background-color: grey;
+}
+
+button:focus {
+  background-color: black;
+  color: white;
 }
 
 /* EVENTS */

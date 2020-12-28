@@ -1,15 +1,77 @@
 import React from "react";
-import { Form, Label, Header, Grid, Input } from "semantic-ui-react";
+import { Form, Label, Header, Grid } from "semantic-ui-react";
 import harp5 from "../images/Harp5.jpeg";
 
 export default class Contact extends React.Component {
+  state = {
+    name: "",
+    email: "",
+  };
+
+  handleChange = (e, { name, value }) => this.setState({ [name]: value });
+
+  handleSubmit = () => {
+    const {
+      name,
+      email,
+      number,
+      title,
+      description,
+      date,
+      startTime,
+      endTime,
+      city,
+      state,
+      details,
+    } = this.state;
+
+    this.setState({
+      name: "",
+      email: "",
+      number: "",
+      title: "",
+      description: "",
+      date: "",
+      startTime: "",
+      endTime: "",
+      city: "",
+      state: "",
+      details: "",
+    });
+    console.log(
+      name,
+      email,
+      number,
+      title,
+      description,
+      date,
+      startTime,
+      endTime,
+      city,
+      state,
+      details
+    );
+  };
+
   render() {
+    const {
+      name,
+      email,
+      number,
+      title,
+      description,
+      date,
+      startTime,
+      endTime,
+      city,
+      state,
+      details,
+    } = this.state;
     return (
       <>
+        <Header as="h2">Get In Touch!</Header>
         <div className="contact">
-          <Header as="h2">Get In Touch!</Header>
-
-          <Label>Email:</Label>
+          <Label className="contactLabel">Email:</Label>
           <a href="mailto:deannapi.mart@gmail.com">
             <svg
               width="1em"
@@ -27,7 +89,7 @@ export default class Contact extends React.Component {
             deannapi.mart@gmail.com
           </a>
           <br />
-          <Label>Phone: </Label>
+          <Label className="contactLabel">Phone: </Label>
           <a href="tel:14324259101">
             <svg
               width="1em"
@@ -51,45 +113,69 @@ export default class Contact extends React.Component {
           <Header as="h5">
             Have all your event details? Fill out the form.
           </Header>
-          <Form>
-            {/* <Form.Group > */}
-              {/* <Grid celled centered>
+          <Form onSubmit={this.handleSubmit}>
+            <Form.Group>
+              <Grid>
                 <Grid.Row>
-                  <Grid.Column width={2}> */}
-                    <Form.Field>
-                      <Label pointing="above">First and Last Name</Label>
-                      <Input placeholder="Full name" />
-                    </Form.Field>
+                  <Grid.Column width={2}>
+                    <Form.Input
+                      label="First & Last Name"
+                      placeholder="Full name"
+                      type="text"
+                      name="name"
+                      onChange={this.handleChange}
+                      value={name}
+                    />
 
-                    <Form.Input label="Email" type="email" />
-                    <Form.Input label="Phone Number" type="tel" />
+                    <Form.Input
+                      label="Email"
+                      type="email"
+                      name="email"
+                      value={email}
+                      onChange={this.handleChange}
+                    />
+                    <Form.Input
+                      label="Phone Number"
+                      type="tel"
+                      name="number"
+                      value={number}
+                    />
                     <Form.Input
                       label="Event Title"
                       placeholder="Wedding, Birthday, Dinner..."
                       type="text"
+                      name="title"
+                      value={title}
                     />
                     <Form.Input
                       label="Description"
                       type="text"
                       placeholder="background music"
+                      value={description}
                     />
-                    <Form.Input label="Event Date" type="date" />
-                  {/* </Grid.Column> */}
+                    <Form.Input label="Event Date" type="date" value={date} />
+                  </Grid.Column>
 
-                  {/* <Grid.Column> */}
-                    <Form.Input label="Start Time" type="time" />
-                    <Form.Input label="End Time" type="time" />
-                    <Form.Input label="City" type="text" />
-                    <Form.Input label="State" type="text" />
+                  <Grid.Column>
+                    <Form.Input
+                      label="Start Time"
+                      type="time"
+                      value={startTime}
+                    />
+                    <Form.Input label="End Time" type="time" value={endTime} />
+                    <Form.Input label="City" type="text" value={city} />
+                    <Form.Input label="State" type="text" value={state} />
+                    <Label>Other Details</Label>
                     <Form.TextArea
-                      label="Other Details"
+                      // label="Other Details"
                       type="text"
                       placeholder="# of people, inside/outside, music requests"
+                      value={details}
                     />
-                  {/* </Grid.Column>
+                  </Grid.Column>
                 </Grid.Row>
-              </Grid> */}
-            {/* </Form.Group> */}
+              </Grid>
+            </Form.Group>
             <Form.Button>Submit</Form.Button>
           </Form>
         </div>

@@ -16,7 +16,7 @@ export default class About extends React.Component {
           travel to your event! To add elegant harp music to your next occasion, {" "}
           <a href="/contact">click here</a>.
         </p>
-        <img src={harp3} alt="harp3" />
+        <img src={harp3} alt="harp3" id="harp3" />
       </div>
     );
   }
