@@ -1,72 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
+import { Axios, db } from "../firebase/firebaseConfig";
 import { Form, Label, Header, Grid } from "semantic-ui-react";
 import harp5 from "../images/Harp5.jpeg";
 
-export default class Contact extends React.Component {
-  state = {
-    name: "",
-    email: "",
-  };
+ const Contact = () => {
+  // render() {
+    const [formData, setFormData] = useState({});
 
-  handleChange = (e, { name, value }) => this.setState({ [name]: value });
+    const updateInput = (e) => {
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value,
+      });
+    };
 
-  handleSubmit = () => {
-    const {
-      name,
-      email,
-      number,
-      title,
-      description,
-      date,
-      startTime,
-      endTime,
-      city,
-      state,
-      details,
-    } = this.state;
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      sendEmail();
+      setFormData({
+        name: "",
+        email: "",
+        number: "",
+        title: "",
+        description: "",
+        date: "",
+        startTime: "",
+        endTime: "",
+        city: "",
+        state: "",
+        details: "",
+      });
+    };
 
-    this.setState({
-      name: "",
-      email: "",
-      number: "",
-      title: "",
-      description: "",
-      date: "",
-      startTime: "",
-      endTime: "",
-      city: "",
-      state: "",
-      details: "",
-    });
-    console.log(
-      name,
-      email,
-      number,
-      title,
-      description,
-      date,
-      startTime,
-      endTime,
-      city,
-      state,
-      details
-    );
-  };
-
-  render() {
-    const {
-      name,
-      email,
-      number,
-      title,
-      description,
-      date,
-      startTime,
-      endTime,
-      city,
-      state,
-      details,
-    } = this.state;
+    const sendEmail = () => {
+      Axios.post(
+        "https://us-central1-harpbydeanna.cloudfunctions.net/submit",
+        formData
+      )
+        .then((res) => {
+          db.collection("emails").add({
+            name: formData.name,
+            email: formData.email,
+            number: formData.number,
+            title: formData.title,
+            description: formData.description,
+            date: formData.date,
+            startTime: formData.startTime,
+            endTime: formData.endTime,
+            city: formData.city,
+            state: formData.state,
+            details: formData.details,
+            time: new Date(),
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
     return (
       <>
         <Header as="h2">Get In Touch!</Header>
@@ -113,7 +103,7 @@ export default class Contact extends React.Component {
           <Header as="h5">
             Have all your event details? Fill out the form.
           </Header>
-          <Form onSubmit={this.handleSubmit}>
+          <Form onSubmit={handleSubmit}>
             <Form.Group>
               <Grid>
                 <Grid.Row>
@@ -123,54 +113,84 @@ export default class Contact extends React.Component {
                       placeholder="Full name"
                       type="text"
                       name="name"
-                      onChange={this.handleChange}
-                      value={name}
+                      onChange={updateInput}
+                      value={formData.name || ""}
                     />
 
                     <Form.Input
                       label="Email"
                       type="email"
                       name="email"
-                      value={email}
-                      onChange={this.handleChange}
+                      onChange={updateInput}
+                      value={formData.email || ""}
                     />
                     <Form.Input
                       label="Phone Number"
                       type="tel"
                       name="number"
-                      value={number}
+                      onChange={updateInput}
+                      value={formData.number || ""}
                     />
                     <Form.Input
                       label="Event Title"
                       placeholder="Wedding, Birthday, Dinner..."
                       type="text"
                       name="title"
-                      value={title}
+                      onChange={updateInput}
+                      value={formData.title || ""}
                     />
                     <Form.Input
                       label="Description"
                       type="text"
                       placeholder="background music"
-                      value={description}
+                      name="description"
+                      onChange={updateInput}
+                      value={formData.description || ""}
                     />
-                    <Form.Input label="Event Date" type="date" value={date} />
+                    <Form.Input
+                      label="Event Date"
+                      type="date"
+                      name="date"
+                      onChange={updateInput}
+                      value={formData.date || ""}
+                    />
                   </Grid.Column>
 
                   <Grid.Column>
                     <Form.Input
                       label="Start Time"
                       type="time"
-                      value={startTime}
+                      name="startTime"
+                      onChange={updateInput}
+                      value={formData.startTime || ""}
                     />
-                    <Form.Input label="End Time" type="time" value={endTime} />
-                    <Form.Input label="City" type="text" value={city} />
-                    <Form.Input label="State" type="text" value={state} />
+                    <Form.Input
+                      label="End Time"
+                      type="time"
+                      name="endTime"
+                      onChange={updateInput}
+                      value={formData.endTime || ""}
+                    />
+                    <Form.Input
+                      label="City"
+                      type="text"
+                      name="city"
+                      onChange={updateInput}
+                      value={formData.city || ""}
+                    />
+                    <Form.Input
+                      label="State"
+                      type="text"
+                      onChange={updateInput}
+                      value={formData.state || ""}
+                    />
                     <Label>Other Details</Label>
                     <Form.TextArea
-                      // label="Other Details"
                       type="text"
                       placeholder="# of people, inside/outside, music requests"
-                      value={details}
+                      name="details"
+                      onChange={updateInput}
+                      value={formData.details || ""}
                     />
                   </Grid.Column>
                 </Grid.Row>
@@ -181,5 +201,7 @@ export default class Contact extends React.Component {
         </div>
       </>
     );
-  }
+  // }
 }
+
+export default Contact
