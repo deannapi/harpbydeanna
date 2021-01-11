@@ -30,6 +30,7 @@ import harp5 from "../images/Harp5.jpeg";
         state: "",
         details: "",
       });
+      console.log(formData);
     };
 
     const sendEmail = () => {
@@ -181,6 +182,7 @@ import harp5 from "../images/Harp5.jpeg";
                     <Form.Input
                       label="State"
                       type="text"
+                      name="state"
                       onChange={updateInput}
                       value={formData.state || ""}
                     />
