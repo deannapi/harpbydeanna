@@ -1,63 +1,62 @@
-import React, { useState } from "react";
-import { Axios, db } from "../firebase/firebaseConfig";
+import React from "react";
+import axios from "axios";
 import { Form, Label, Header, Grid } from "semantic-ui-react";
 import harp5 from "../images/Harp5.jpeg";
 
- const Contact = () => {
-  // render() {
-    const [formData, setFormData] = useState({});
-
-    const updateInput = (e) => {
-      setFormData({
-        ...formData,
-        [e.target.name]: e.target.value,
-      });
+export default class Contact extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "",
+      email: "",
+      number: "",
+      title: "",
+      description: "",
+      date: "",
+      startTime: "",
+      endTime: "",
+      city: "",
+      state: "",
+      details: "",
     };
+  }
 
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      sendEmail();
-      setFormData({
-        name: "",
-        email: "",
-        number: "",
-        title: "",
-        description: "",
-        date: "",
-        startTime: "",
-        endTime: "",
-        city: "",
-        state: "",
-        details: "",
-      });
-      console.log(formData);
-    };
+  handleSubmit(e) {
+    e.preventDefault();
 
-    const sendEmail = () => {
-      Axios.post(
-        "https://us-central1-harpbydeanna.cloudfunctions.net/submit",
-        formData
-      )
-        .then((res) => {
-          db.collection("emails").add({
-            name: formData.name,
-            email: formData.email,
-            number: formData.number,
-            title: formData.title,
-            description: formData.description,
-            date: formData.date,
-            startTime: formData.startTime,
-            endTime: formData.endTime,
-            city: formData.city,
-            state: formData.state,
-            details: formData.details,
-            time: new Date(),
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
+    console.log("Form Details: ", this.state);
+
+    axios({
+      method: "POST",
+      url: "/send",
+      data: this.state,
+    }).then((response) => {
+      if (response.data.status === "success") {
+        alert("Message Sent.");
+        this.resetForm();
+      } else if (response.data.status === "fail") {
+        alert("Message failed to send.");
+      }
+    });
+  }
+
+  resetForm() {
+    this.setState({
+      name: "",
+      email: "",
+      number: "",
+      title: "",
+      description: "",
+      date: "",
+      startTime: "",
+      endTime: "",
+      city: "",
+      state: "",
+      details: "",
+    });
+  }
+
+  render() {
     return (
       <>
         <Header as="h2">Get In Touch!</Header>
@@ -104,7 +103,11 @@ import harp5 from "../images/Harp5.jpeg";
           <Header as="h5">
             Have all your event details? Fill out the form.
           </Header>
-          <Form onSubmit={handleSubmit}>
+          <Form
+            onSubmit={this.handleSubmit.bind(this)}
+            id="contact-form"
+            method="POST"
+          >
             <Form.Group>
               <Grid>
                 <Grid.Row>
@@ -114,46 +117,46 @@ import harp5 from "../images/Harp5.jpeg";
                       placeholder="Full name"
                       type="text"
                       name="name"
-                      onChange={updateInput}
-                      value={formData.name || ""}
+                      value={this.state.name}
+                      onChange={this.onNameChange.bind(this)}
                     />
 
                     <Form.Input
                       label="Email"
                       type="email"
                       name="email"
-                      onChange={updateInput}
-                      value={formData.email || ""}
+                      value={this.state.email}
+                      onChange={this.onEmailChange.bind(this)}
                     />
                     <Form.Input
                       label="Phone Number"
                       type="tel"
                       name="number"
-                      onChange={updateInput}
-                      value={formData.number || ""}
+                      value={this.state.number}
+                      onChange={this.onNumberChange.bind(this)}
                     />
                     <Form.Input
                       label="Event Title"
                       placeholder="Wedding, Birthday, Dinner..."
                       type="text"
                       name="title"
-                      onChange={updateInput}
-                      value={formData.title || ""}
+                      value={this.state.title}
+                      onChange={this.onTitleChange.bind(this)}
                     />
                     <Form.Input
                       label="Description"
                       type="text"
                       placeholder="background music"
                       name="description"
-                      onChange={updateInput}
-                      value={formData.description || ""}
+                      value={this.state.description}
+                      onChange={this.onDescChange.bind(this)}
                     />
                     <Form.Input
                       label="Event Date"
                       type="date"
                       name="date"
-                      onChange={updateInput}
-                      value={formData.date || ""}
+                      value={this.state.date}
+                      onChange={this.onDateChange.bind(this)}
                     />
                   </Grid.Column>
 
@@ -162,48 +165,90 @@ import harp5 from "../images/Harp5.jpeg";
                       label="Start Time"
                       type="time"
                       name="startTime"
-                      onChange={updateInput}
-                      value={formData.startTime || ""}
+                      value={this.state.startTime}
+                      onChange={this.onStartTimeChange.bind(this)}
                     />
                     <Form.Input
                       label="End Time"
                       type="time"
                       name="endTime"
-                      onChange={updateInput}
-                      value={formData.endTime || ""}
+                      value={this.state.endTime}
+                      onChange={this.onEndTimeChange.bind(this)}
                     />
                     <Form.Input
                       label="City"
                       type="text"
                       name="city"
-                      onChange={updateInput}
-                      value={formData.city || ""}
+                      value={this.state.city}
+                      onChange={this.onCityChange.bind(this)}
                     />
                     <Form.Input
                       label="State"
                       type="text"
                       name="state"
-                      onChange={updateInput}
-                      value={formData.state || ""}
+                      value={this.state.state}
+                      onChange={this.onStateChange.bind(this)}
                     />
                     <Label>Other Details</Label>
                     <Form.TextArea
                       type="text"
                       placeholder="# of people, inside/outside, music requests"
                       name="details"
-                      onChange={updateInput}
-                      value={formData.details || ""}
+                      value={this.state.details}
+                      onChange={this.onDetailsChange.bind(this)}
                     />
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
             </Form.Group>
-            <Form.Button>Submit</Form.Button>
+            <Form.Button type="submit">Submit</Form.Button>
           </Form>
         </div>
       </>
     );
-  // }
-}
+  }
 
-export default Contact
+  onNameChange(event) {
+    this.setState({ name: event.target.value });
+  }
+
+  onEmailChange(event) {
+    this.setState({ email: event.target.value });
+  }
+
+  onNumberChange(event) {
+    this.setState({ number: event.target.value });
+  }
+
+  onTitleChange(event) {
+    this.setState({ title: event.target.value });
+  }
+
+  onDescChange(event) {
+    this.setState({ description: event.target.value });
+  }
+
+  onDateChange(event) {
+    this.setState({ date: event.target.value });
+  }
+
+  onStartTimeChange(event) {
+    this.setState({ startTime: event.target.value });
+  }
+
+  onEndTimeChange(event) {
+    this.setState({ endTime: event.target.value });
+  }
+
+  onCityChange(event) {
+    this.setState({ city: event.target.value });
+  }
+
+  onStateChange(event) {
+    this.setState({ state: event.target.value });
+  }
+
+  onDetailsChange(event) {
+    this.setState({ details: event.target.value });
+  }
+}
