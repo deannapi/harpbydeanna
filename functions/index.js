@@ -14,7 +14,7 @@ const mailTransport = nodemailer.createTransport({
   },
 });
 
-app.use(cors());
+// app.use(cors());
 
 exports.submit = functions.https.onRequest((req, res) => {
   let headers = new Headers();
