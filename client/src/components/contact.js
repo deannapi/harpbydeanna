@@ -4,56 +4,48 @@ import { Form, Label, Header, Grid } from "semantic-ui-react";
 import harp5 from "../images/Harp5.jpeg";
 
 export default class Contact extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: "",
-      email: "",
-      number: "",
-      title: "",
-      description: "",
-      date: "",
-      startTime: "",
-      endTime: "",
-      city: "",
-      state: "",
-      details: "",
-    };
-  }
-
   handleSubmit(e) {
     e.preventDefault();
-
-    console.log("Form Details: ", this.state);
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const number = document.getElementById("number").value;
+    const title = document.getElementById("title").value;
+    const description = document.getElementById("description").value;
+    const date = document.getElementById("date").value;
+    const startTime = document.getElementById("startTime").value;
+    const endTime = document.getElementById("endTime").value;
+    const city = document.getElementById("city").value;
+    const state = document.getElementById("state").value;
+    const details = document.getElementById("details").value;
 
     axios({
       method: "POST",
-      url: "/send",
-      data: this.state,
+      url: "https://localhost:3002/send",
+      data: {
+        name: name,
+        email: email,
+        number: number,
+        title: title,
+        description: description,
+        date: date,
+        startTime: startTime,
+        endTime: endTime,
+        city: city,
+        state: state,
+        details: details,
+      },
     }).then((response) => {
-      if (response.data.status === "success") {
-        alert("Message Sent.");
+      if (response.data.msg === "success") {
+        alert("Message Sent");
         this.resetForm();
-      } else if (response.data.status === "fail") {
+      } else if (response.data.msg === "fail") {
         alert("Message failed to send.");
       }
     });
   }
 
   resetForm() {
-    this.setState({
-      name: "",
-      email: "",
-      number: "",
-      title: "",
-      description: "",
-      date: "",
-      startTime: "",
-      endTime: "",
-      city: "",
-      state: "",
-      details: "",
-    });
+    document.getElementById("contact-form").reset();
   }
 
   render() {
@@ -117,46 +109,52 @@ export default class Contact extends React.Component {
                       placeholder="Full name"
                       type="text"
                       name="name"
-                      value={this.state.name}
-                      onChange={this.onNameChange.bind(this)}
+                      id="name"
+                      // value={this.state.name}
+                      // onChange={this.onNameChange.bind(this)}
                     />
 
                     <Form.Input
                       label="Email"
                       type="email"
                       name="email"
-                      value={this.state.email}
-                      onChange={this.onEmailChange.bind(this)}
+                      id="email"
+                      // value={this.state.email}
+                      // onChange={this.onEmailChange.bind(this)}
                     />
                     <Form.Input
                       label="Phone Number"
                       type="tel"
                       name="number"
-                      value={this.state.number}
-                      onChange={this.onNumberChange.bind(this)}
+                      id="number"
+                      // value={this.state.number}
+                      // onChange={this.onNumberChange.bind(this)}
                     />
                     <Form.Input
                       label="Event Title"
                       placeholder="Wedding, Birthday, Dinner..."
                       type="text"
                       name="title"
-                      value={this.state.title}
-                      onChange={this.onTitleChange.bind(this)}
+                      id="title"
+                      // value={this.state.title}
+                      // onChange={this.onTitleChange.bind(this)}
                     />
                     <Form.Input
                       label="Description"
                       type="text"
                       placeholder="background music"
                       name="description"
-                      value={this.state.description}
-                      onChange={this.onDescChange.bind(this)}
+                      id="description"
+                      // value={this.state.description}
+                      // onChange={this.onDescChange.bind(this)}
                     />
                     <Form.Input
                       label="Event Date"
                       type="date"
                       name="date"
-                      value={this.state.date}
-                      onChange={this.onDateChange.bind(this)}
+                      id="date"
+                      // value={this.state.date}
+                      // onChange={this.onDateChange.bind(this)}
                     />
                   </Grid.Column>
 
@@ -165,37 +163,42 @@ export default class Contact extends React.Component {
                       label="Start Time"
                       type="time"
                       name="startTime"
-                      value={this.state.startTime}
-                      onChange={this.onStartTimeChange.bind(this)}
+                      id="startTime"
+                      // value={this.state.startTime}
+                      // onChange={this.onStartTimeChange.bind(this)}
                     />
                     <Form.Input
                       label="End Time"
                       type="time"
                       name="endTime"
-                      value={this.state.endTime}
-                      onChange={this.onEndTimeChange.bind(this)}
+                      id="endTime"
+                      // value={this.state.endTime}
+                      // onChange={this.onEndTimeChange.bind(this)}
                     />
                     <Form.Input
                       label="City"
                       type="text"
                       name="city"
-                      value={this.state.city}
-                      onChange={this.onCityChange.bind(this)}
+                      id="city"
+                      // value={this.state.city}
+                      // onChange={this.onCityChange.bind(this)}
                     />
                     <Form.Input
                       label="State"
                       type="text"
                       name="state"
-                      value={this.state.state}
-                      onChange={this.onStateChange.bind(this)}
+                      id="state"
+                      // value={this.state.state}
+                      // onChange={this.onStateChange.bind(this)}
                     />
                     <Label>Other Details</Label>
                     <Form.TextArea
                       type="text"
                       placeholder="# of people, inside/outside, music requests"
                       name="details"
-                      value={this.state.details}
-                      onChange={this.onDetailsChange.bind(this)}
+                      id="details"
+                      // value={this.state.details}
+                      // onChange={this.onDetailsChange.bind(this)}
                     />
                   </Grid.Column>
                 </Grid.Row>
@@ -206,49 +209,5 @@ export default class Contact extends React.Component {
         </div>
       </>
     );
-  }
-
-  onNameChange(event) {
-    this.setState({ name: event.target.value });
-  }
-
-  onEmailChange(event) {
-    this.setState({ email: event.target.value });
-  }
-
-  onNumberChange(event) {
-    this.setState({ number: event.target.value });
-  }
-
-  onTitleChange(event) {
-    this.setState({ title: event.target.value });
-  }
-
-  onDescChange(event) {
-    this.setState({ description: event.target.value });
-  }
-
-  onDateChange(event) {
-    this.setState({ date: event.target.value });
-  }
-
-  onStartTimeChange(event) {
-    this.setState({ startTime: event.target.value });
-  }
-
-  onEndTimeChange(event) {
-    this.setState({ endTime: event.target.value });
-  }
-
-  onCityChange(event) {
-    this.setState({ city: event.target.value });
-  }
-
-  onStateChange(event) {
-    this.setState({ state: event.target.value });
-  }
-
-  onDetailsChange(event) {
-    this.setState({ details: event.target.value });
   }
 }

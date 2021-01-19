@@ -1,25 +1,23 @@
-import env from 'react-dotenv';
 var express = require("express");
 var router = express.Router();
 var nodemailer = require("nodemailer");
-var cors = require("cors");
+const creds = require("../config/config");
 
-nodemailer.createTransport({
+var transport = {
   host: "smtp.gmail.com",
-  port: 465,
   auth: {
-    user: env.USER,
-    pass: env.PASS
+    user: creds.USER,
+    pass: creds.PASS,
   },
-  debug: true,
-  logger: true
-});
+};
+
+var transporter = nodemailer.createTransport(transport);
 
 transporter.verify((error, success) => {
   if (error) {
     console.log(error);
   } else {
-    console.log("Server is ready to take messages");
+    console.log("Server is ready to take messages.");
   }
 });
 
@@ -39,7 +37,7 @@ router.post("/send", (req, res, next) => {
 
   var mail = {
     from: email,
-    to: env.USER, // Change to email address that you want to receive messages on
+    to: creds.USER, // Change to email address that you want to receive messages on
     subject: "Harp Gig Request",
     text: content,
   };
@@ -57,8 +55,4 @@ router.post("/send", (req, res, next) => {
   });
 });
 
-const app = express();
-app.use(cors());
-app.use(express.json());
-app.route("/", router);
-app.listen(3000);
+module.exports = router;

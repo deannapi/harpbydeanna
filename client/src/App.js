@@ -1,12 +1,12 @@
 import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Header from "../client/src/components/header";
-import Home from "../client/src/components/home";
-import Footer from "../client/src/components/footer";
-import Contact from "../client/src/components/contact";
-import Event from "../client/src/components/events";
-import About from "../client/src/components/about";
+import Header from "./components/header";
+import Home from "./components/home";
+import Footer from "./components/footer";
+import Contact from "./components/contact";
+import Event from "./components/events";
+import About from "./components/about";
 
 export default function App() {
   return (
