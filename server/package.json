@@ -5,12 +5,21 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node ./bin/www"
   },
   "author": "DeAnna Martinez",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "debug": "^4.3.1",
     "express": "^4.17.1",
-    "nodemailer": "^6.4.17"
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.4.17",
+    "pug": "^3.0.0",
+    "xoauth2": "^1.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }

@@ -1,6 +1,4 @@
-import env from 'react-dotenv';
-
 module.exports = {
-    USER: env.USER,
-    PASS: env.PASS
+    USER: process.env.USER,
+    PASS: process.env.PASS
 }

@@ -1,13 +1,27 @@
 var express = require("express");
 var router = express.Router();
 var nodemailer = require("nodemailer");
-const creds = require("../config/config");
+const XOAuth2 = require("nodemailer/lib/xoauth2");
+const xoauth2 = require("xoauth2");
+require("dotenv").config();
+// const creds = require("../config/config");
 
 var transport = {
-  host: "smtp.gmail.com",
+  service: "gmail",
+  // host: "smtp.gmail.com",
+  // port: 465,
+  // secure: true,
   auth: {
-    user: creds.USER,
-    pass: creds.PASS,
+    // type: "OAuth2",
+    xoauth2: xoauth2.createXOAuth2Generator({
+      user: process.env.USER,
+      // pass: process.env.PASS,
+      clientId: process.env.OAUTH_CLIENT_ID,
+      clientSecret: process.env.OAUTH_CLIENT_SECRET,
+      refreshToken: process.env.OAUTH_REFRESH_TOKEN,
+      accessToken: process.env.OAUTH_ACCESS_TOKEN,
+      // expires: 3599,
+    }),
   },
 };
 
@@ -33,24 +47,25 @@ router.post("/send", (req, res, next) => {
   var city = req.body.city;
   var state = req.body.state;
   var details = req.body.details;
-  var content = `name: ${name} \n email: ${email} \n title: ${title} \n  number: ${number} description: ${description} \n date: ${date} \n StartTime: ${startTime} EndTime: ${endTime} \n Location: ${city}, ${state} \n Details: ${details}`;
+  // var content = `name: ${name} \n email: ${email} \n title: ${title} \n  number: ${number} description: ${description} \n date: ${date} \n StartTime: ${startTime} EndTime: ${endTime} \n Location: ${city}, ${state} \n Details: ${details}`;
 
-  var mail = {
+  const mailOptions = {
     from: email,
-    to: creds.USER, // Change to email address that you want to receive messages on
+    to: process.env.USER, // Change to email address that you want to receive messages on
     subject: "Harp Gig Request",
-    text: content,
+    html: `<h1>${name} has sent a Harp Gig Request</h1>
+          <p>${email} ${number}</p>
+          <p>${title} ${description}</p>
+          <p>${date} From ${startTime} To ${endTime}</p>
+          <p>Location: ${city}, ${state}</p>
+          <p>Other details: ${details}</p>`,
   };
 
-  transporter.sendMail(mail, (err, data) => {
+  transporter.sendMail(mailOptions, (err, data) => {
     if (err) {
-      res.json({
-        status: "fail",
-      });
+      console.log("Error: ", err);
     } else {
-      res.json({
-        status: "success",
-      });
+      console.log("Email sent successfully.");
     }
   });
 });
