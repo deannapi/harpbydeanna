@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Form, Label, Header, Grid } from "semantic-ui-react";
+// import { Form, Label, Header, Grid, Container } from "semantic-ui-react";
 import harp5 from "../images/Harp5.jpeg";
 
 export default class Contact extends React.Component {
@@ -20,7 +20,7 @@ export default class Contact extends React.Component {
 
     axios({
       method: "POST",
-      url: "https://localhost:3002/send",
+      url: "http://localhost:3002/send",
       data: {
         name: name,
         email: email,
@@ -51,7 +51,7 @@ export default class Contact extends React.Component {
   render() {
     return (
       <>
-        <Header as="h2">Get In Touch!</Header>
+        {/* <Header as="h2">Get In Touch!</Header>
         <div className="contact">
           <Label className="contactLabel">Email:</Label>
           <a href="mailto:deannapi.mart@gmail.com">
@@ -88,124 +88,77 @@ export default class Contact extends React.Component {
             </svg>
             (m) 432.425.9101
           </a>
-        </div>
+        </div> */}
 
-        <div className="contactform">
+        <div className="contactform container">
           <img src={harp5} id="harp5" alt="harp5" />
-          <Header as="h5">
-            Have all your event details? Fill out the form.
-          </Header>
-          <Form
+          <h5>Have all your event details? Complete the form.</h5>
+          <form
             onSubmit={this.handleSubmit.bind(this)}
             id="contact-form"
             method="POST"
           >
-            <Form.Group>
-              <Grid>
-                <Grid.Row>
-                  <Grid.Column width={2}>
-                    <Form.Input
-                      label="First & Last Name"
-                      placeholder="Full name"
-                      type="text"
-                      name="name"
-                      id="name"
-                      // value={this.state.name}
-                      // onChange={this.onNameChange.bind(this)}
-                    />
+            <div className="row">
+              <label>First & Last Name</label>
+              <input
+                placeholder="Full name"
+                type="text"
+                name="name"
+                id="name"
+              />
+              <label>Email</label>
+              <input type="email" name="email" id="email" />
+              <label>Phone Number</label>
+              <input type="tel" name="number" id="number" />
+            </div>
 
-                    <Form.Input
-                      label="Email"
-                      type="email"
-                      name="email"
-                      id="email"
-                      // value={this.state.email}
-                      // onChange={this.onEmailChange.bind(this)}
-                    />
-                    <Form.Input
-                      label="Phone Number"
-                      type="tel"
-                      name="number"
-                      id="number"
-                      // value={this.state.number}
-                      // onChange={this.onNumberChange.bind(this)}
-                    />
-                    <Form.Input
-                      label="Event Title"
-                      placeholder="Wedding, Birthday, Dinner..."
-                      type="text"
-                      name="title"
-                      id="title"
-                      // value={this.state.title}
-                      // onChange={this.onTitleChange.bind(this)}
-                    />
-                    <Form.Input
-                      label="Description"
-                      type="text"
-                      placeholder="background music"
-                      name="description"
-                      id="description"
-                      // value={this.state.description}
-                      // onChange={this.onDescChange.bind(this)}
-                    />
-                    <Form.Input
-                      label="Event Date"
-                      type="date"
-                      name="date"
-                      id="date"
-                      // value={this.state.date}
-                      // onChange={this.onDateChange.bind(this)}
-                    />
-                  </Grid.Column>
+            <div className="row">
+              <label>Event Title</label>
+              <input
+                placeholder="Wedding, Birthday, Dinner..."
+                type="text"
+                name="title"
+                id="title"
+              />
+              <label>Description</label>
+              <input
+                type="text"
+                placeholder="background music"
+                name="description"
+                id="description"
+              />
+            </div>
 
-                  <Grid.Column>
-                    <Form.Input
-                      label="Start Time"
-                      type="time"
-                      name="startTime"
-                      id="startTime"
-                      // value={this.state.startTime}
-                      // onChange={this.onStartTimeChange.bind(this)}
-                    />
-                    <Form.Input
-                      label="End Time"
-                      type="time"
-                      name="endTime"
-                      id="endTime"
-                      // value={this.state.endTime}
-                      // onChange={this.onEndTimeChange.bind(this)}
-                    />
-                    <Form.Input
-                      label="City"
-                      type="text"
-                      name="city"
-                      id="city"
-                      // value={this.state.city}
-                      // onChange={this.onCityChange.bind(this)}
-                    />
-                    <Form.Input
-                      label="State"
-                      type="text"
-                      name="state"
-                      id="state"
-                      // value={this.state.state}
-                      // onChange={this.onStateChange.bind(this)}
-                    />
-                    <Label>Other Details</Label>
-                    <Form.TextArea
-                      type="text"
-                      placeholder="# of people, inside/outside, music requests"
-                      name="details"
-                      id="details"
-                      // value={this.state.details}
-                      // onChange={this.onDetailsChange.bind(this)}
-                    />
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-            </Form.Group>
-            <Form.Button type="submit">Submit</Form.Button>
-          </Form>
+            <div className="row">
+              <label>Event Date</label>
+              <input type="date" name="date" id="date" />
+              <label>Start Time</label>
+              <input type="time" name="startTime" id="startTime" />
+              <label>End Time</label>
+              <input type="time" name="endTime" id="endTime" />
+            </div>
+
+            <div className="row">
+              <label>City</label>
+              <input type="text" name="city" id="city" />
+              <label>State</label>
+              <input type="text" name="state" id="state" />
+            </div>
+
+            <div className="row">
+              <label>Other Details</label>
+              <textarea
+                type="text"
+                placeholder="# of people, inside/outside, music requests"
+                name="details"
+                id="details"
+                rows="8"
+                cols="30"
+              />
+            </div>
+
+            <button type="submit">Submit</button>
+          </form>
         </div>
       </>
     );

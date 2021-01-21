@@ -112,6 +112,15 @@ footer ul li {
   border: var(--rosegold) 8px double;
 }
 
+.contactform {
+  text-align: center;
+}
+
+form .row {
+  /* justify-content: center; */
+  text-align: center;
+}
+
 .about p {
   font-family: "Tahoma";
 }
@@ -140,13 +149,15 @@ label {
   font-size: 14px;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   font-variant: small-caps;
+  margin-right: 5px;
 }
 
 input, textarea {
-  margin-bottom: 5px;
+  margin-bottom: 15px;
   border: #b76e79 3px double;
   border-radius: 10px;
   font-size: 12px;
+  margin-right: 15px;
 }
 
 .contact h2 {
@@ -159,10 +170,6 @@ h5 {
   font-family: "Gabriola", cursive;
   text-align: center;
   font-weight: 500;
-}
-
-.contactform {
-  text-align: center;
 }
 
 form {
