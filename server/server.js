@@ -1,7 +1,6 @@
 var express = require("express");
 var path = require("path");
 const cors = require("cors");
-var router = express.Router();
 var nodemailer = require("nodemailer");
 
 const PORT = process.env.PORT || 3000;
@@ -20,12 +19,12 @@ if (process.eventNames.NODE_ENV === "production") {
 }
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/build/index.hmtl"));
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}.`);
-})
+});
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -54,28 +53,37 @@ app.use(function (req, res, next) {
 //   res.render("error");
 // });
 
-var transport = {
-  service: "gmail",
+// var transport = {
+// service: "gmail",
+// host: "smtp.gmail.com",
+// port: 465,
+// secure: true,
+// auth: {
+// type: "OAuth2",
+// xoauth2: xoauth2.createXOAuth2Generator({
+// user: process.env.USER,
+// pass: process.env.PASS,
+// pass: process.env.PASS,
+// clientId: process.env.OAUTH_CLIENT_ID,
+// clientSecret: process.env.OAUTH_CLIENT_SECRET,
+// refreshToken: process.env.OAUTH_REFRESH_TOKEN,
+// accessToken: process.env.OAUTH_ACCESS_TOKEN,
+// expires: 3599,
+// },
+// ),
+// },
+// };
+
+
+
+var transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
-  // port: 465,
-  // secure: true,
+  port: 465,
   auth: {
-    // type: "OAuth2",
-    // xoauth2: xoauth2.createXOAuth2Generator({
     user: process.env.USER,
     pass: process.env.PASS,
-    // pass: process.env.PASS,
-    // clientId: process.env.OAUTH_CLIENT_ID,
-    // clientSecret: process.env.OAUTH_CLIENT_SECRET,
-    // refreshToken: process.env.OAUTH_REFRESH_TOKEN,
-    // accessToken: process.env.OAUTH_ACCESS_TOKEN,
-    // expires: 3599,
   },
-  // ),
-  // },
-};
-
-var transporter = nodemailer.createTransport(transport);
+});
 
 transporter.verify((error, success) => {
   if (error) {
@@ -85,7 +93,7 @@ transporter.verify((error, success) => {
   }
 });
 
-router.post("/send", (req, res, next) => {
+router.post("/contact", (req, res, next) => {
   const mailOptions = {
     from: email,
     to: process.env.USER, // Change to email address that you want to receive messages on

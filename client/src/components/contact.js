@@ -20,7 +20,7 @@ export default class Contact extends React.Component {
 
     axios({
       method: "POST",
-      url: "http://localhost:3000/send",
+      url: "http://localhost:3000/contact",
       data: {
         name: name,
         email: email,
