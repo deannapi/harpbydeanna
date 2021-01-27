@@ -7,7 +7,6 @@ import Footer from "./components/footer";
 import Contact from "./components/contact";
 import Event from "./components/events";
 import About from "./components/about";
-import {  } from "../public/favicon.ico";
 
 export default function App() {
   return (

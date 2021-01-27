@@ -3,6 +3,7 @@ var path = require("path");
 const cors = require("cors");
 var nodemailer = require("nodemailer");
 require("dotenv").config();
+const router = express.Router();
 
 const PORT = process.env.PORT || 3000;
 var app = express();
@@ -12,17 +13,16 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Server up static assets
-app.use(express.static(path.join(__dirname, "../client/public")));
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+
+// app.use(function (req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
 
 var transport = nodemailer.createTransport({
   host: "smtp.gmail.com",
@@ -42,7 +42,7 @@ var transport = nodemailer.createTransport({
 });
 
 function sendMessage() {
-  app.post("/contact", (req, res, next) => {
+  router.post("/contact", (req, res, next) => {
     const {
       name,
       email,
@@ -56,20 +56,21 @@ function sendMessage() {
       state,
       details,
     } = req.body;
-    console.log("it is working", name, email, req.body.number);
+    console.log("Postman POST is working.");
 
     try {
       // mail options
       const mailOptions = {
-        from: email,
+        from: 'math_harp@yahoo.com',
         to: process.env.USER, // Change to email address that you want to receive messages on
         subject: "Harp Gig Request",
-        html: `<h1>req.body.name has sent a Harp Gig Request</h1>
-            <p>Email: req.body.email Number: req.body.number</p>
-            <p>${title} ${description}</p>
-            <p>${date} From ${startTime} To ${endTime}</p>
-            <p>Location: ${city}, ${state}</p>
-            <p>Other details: ${details}</p>`,
+        // html: `<h1>req.body.name has sent a Harp Gig Request</h1>
+        //     <p>Email: req.body.email Number: req.body.number</p>
+        //     <p>req.body.title, req.body.description</p>
+        //     <p>${date} From req.body.startTime To req.body.endTime</p>
+        //     <p>Location: req.body.city, req.body.state</p>
+        //     <p>Other details: req.body.details</p>`,
+        text: req.body.text
       };
 
       // send email here
@@ -86,8 +87,6 @@ function sendMessage() {
   });
 }
 
-sendMessage();
-
 transport.verify((error, success) => {
   if (error) {
     console.log(error);
@@ -96,8 +95,16 @@ transport.verify((error, success) => {
   }
 });
 
+// Server up static assets
+// app.use(express.static(path.join(__dirname, "../client/public")));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/build")));
+}
+
 app.get("*", (req, res) => {
-  console.log(req.path);
+  // console.log(req.path);
+  // const index = path.join(__dirname, 'build', 'index.html');
+  // res.sendFile(index);
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
@@ -105,4 +112,7 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
-module.exports = app;
+sendMessage();
+
+// module.exports = app;
+module.exports = router;
