@@ -158,6 +158,22 @@ export default class Contact extends React.Component {
             </div>
 
             <button type="submit">Submit</button>
+
+            {/* SUCCESS MESSAGE */}
+            <div>
+              {window.location.hash === "#success" && (
+                <div id="success">
+                  <p>
+                    Your message has been sent. I will reach out to you shortly!
+                  </p>
+                </div>
+              )}
+              {window.location.hash === "#error" && (
+                <div id="error">
+                  <p>Uh oh! An error occured while submitting the form.</p>
+                </div>
+              )}
+            </div>
           </form>
         </div>
       </>
