@@ -14,18 +14,6 @@ app.use(express.urlencoded({ extended: true }));
 // Server up static assets
 app.use(express.static(path.join(__dirname, "../client/public")));
 
-if (process.eventNames.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client/build")));
-}
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/build/index.html"));
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}.`);
-});
-
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -35,53 +23,19 @@ app.use(function (req, res, next) {
   next();
 });
 
-// catch 404 and forward to error handler
-// app.use(function (req, res, next) {
-//   var err = new Error("Not Found");
-//   err.status = 404;
-//   next(err);
-// });
-
-// // error handler
-// app.use(function (err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get("env") === "development" ? err : {};
-
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render("error");
-// });
-
-// var transport = {
-// service: "gmail",
-// host: "smtp.gmail.com",
-// port: 465,
-// secure: true,
-// auth: {
-// type: "OAuth2",
-// xoauth2: xoauth2.createXOAuth2Generator({
-// user: process.env.USER,
-// pass: process.env.PASS,
-// pass: process.env.PASS,
-// clientId: process.env.OAUTH_CLIENT_ID,
-// clientSecret: process.env.OAUTH_CLIENT_SECRET,
-// refreshToken: process.env.OAUTH_REFRESH_TOKEN,
-// accessToken: process.env.OAUTH_ACCESS_TOKEN,
-// expires: 3599,
-// },
-// ),
-// },
-// };
-
-
+// if (process.eventNames.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "../client/build")));
+// }
 
 var transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 465,
   auth: {
     user: process.env.USER,
-    pass: process.env.PASS,
+    // pass: process.env.PASS,
+    clientId: process.env.OAUTH_CLIENT_ID,
+    clientSecret: process.env.OAUTH_CLIENT_SECRET,
+    refreshToken: process.env.OAUTH_REFRESH_TOKEN,
   },
 });
 
@@ -93,7 +47,21 @@ transporter.verify((error, success) => {
   }
 });
 
-router.post("/contact", (req, res, next) => {
+app.post("/contact", (req, res, next) => {
+  const {
+    name,
+    email,
+    number,
+    title,
+    description,
+    date,
+    startTime,
+    endTime,
+    city,
+    state,
+    details,
+  } = req.body;
+  console.log("it is working", name, email);
   const mailOptions = {
     from: email,
     to: process.env.USER, // Change to email address that you want to receive messages on
@@ -114,5 +82,34 @@ router.post("/contact", (req, res, next) => {
     }
   });
 });
+
+app.get("*", (req, res) => {
+  console.log(req.path);
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}.`);
+});
+
+// var transport = {
+// service: "gmail",
+// host: "smtp.gmail.com",
+// port: 465,
+// secure: true,
+// auth: {
+// type: "OAuth2",
+// xoauth2: xoauth2.createXOAuth2Generator({
+// user: process.env.USER,
+// pass: process.env.PASS,
+// clientId: process.env.OAUTH_CLIENT_ID,
+// clientSecret: process.env.OAUTH_CLIENT_SECRET,
+// refreshToken: process.env.OAUTH_REFRESH_TOKEN,
+// accessToken: process.env.OAUTH_ACCESS_TOKEN,
+// expires: 3599,
+// },
+// ),
+// },
+// };
 
 module.exports = app;
