@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-// import { Form, Label, Header, Grid, Container } from "semantic-ui-react";
 import harp5 from "../images/Harp5.jpeg";
 
 export default class Contact extends React.Component {
@@ -97,6 +96,7 @@ export default class Contact extends React.Component {
             onSubmit={this.handleSubmit.bind(this)}
             id="contact-form"
             method="POST"
+            action="/contact"
           >
             <div className="row">
               <label>First & Last Name</label>
